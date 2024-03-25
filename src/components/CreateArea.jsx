@@ -1,68 +1,54 @@
 import React, { useState } from "react";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-import Zoom from "@material-ui/core/Zoom";
 
-function CreateArea(props) {
-  const [isExpanded, setExpanded] = useState(false);
+function CreateArea(props){
 
-  const [note, setNote] = useState({
-    title: "",
-    content: ""
-  });
-
-  function handleChange(event) {
-    const { name, value } = event.target;
-
-    setNote(prevNote => {
-      return {
-        ...prevNote,
-        [name]: value
-      };
+    const [note, setNote] = useState({
+        title: "",
+        content: ""
     });
-  }
 
-  function submitNote(event) {
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: ""
-    });
-    event.preventDefault();
-  }
 
-  function expand() {
-    setExpanded(true);
-  }
+    function handleChange(event) {
+       const { name, value } = event.target;
 
-  return (
-    <div>
-      <form className="create-note">
-        {isExpanded && (
-          <input
-            name="title"
-            onChange={handleChange}
-            value={note.title}
-            placeholder="Title"
-          />
-        )}
+       setNote(prevNote => {
+           return {
+               ...prevNote,
+               [name] : value
+           };
+       });
+    }
 
-        <textarea
-          name="content"
-          onClick={expand}
-          onChange={handleChange}
-          value={note.content}
-          placeholder="Take a note..."
-          rows={isExpanded ? 3 : 1}
-        />
-        <Zoom in={isExpanded}>
-          <Fab onClick={submitNote}>
-            <AddIcon />
-          </Fab>
-        </Zoom>
-      </form>
-    </div>
-  );
+    function submitNote(event){
+        props.onAdd(note);
+        setNote({
+            title: "",
+            content: ""
+        })
+        event.preventDefault();
+
+    }
+
+    return(
+        <div>
+            <form>
+                <input 
+                name="title" 
+                onChange={handleChange} 
+                value={note.title} 
+                placeholder="Title" 
+                />
+                <textarea 
+                onChange={handleChange}
+                name="content" 
+                value={note.content} 
+                placeholder="Take a note..." 
+                rows="3"
+                 />
+                <button onClick={submitNote}>Add</button>
+            </form>
+        </div>
+    )
 }
 
-export default CreateArea;
+export default CreateArea 
